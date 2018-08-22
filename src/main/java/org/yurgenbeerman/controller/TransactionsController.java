@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.yurgenbeerman.model.LastLoad;
@@ -45,5 +47,12 @@ public class TransactionsController {
         lastLoads.add(lastLoad2);
 
         return lastLoads;
+    }
+
+    //see https://octoperf.com/blog/2018/02/22/spring-boot-rest-tutorial/#restassured-unit-test
+    //use Content-type: application/json header {"id":111,"sourceName":"НОВЕ ДЖЕРЕЛО"} body for POST tests
+    @PostMapping("/")
+    public String postHello(@RequestBody final Transaction transaction) {
+        return "POST: " + transaction.getId() + " - " + transaction.getSourceName();
     }
 }
